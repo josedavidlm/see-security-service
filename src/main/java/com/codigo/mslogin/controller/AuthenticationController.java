@@ -13,22 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/autenticacion")
+//@RequestMapping("/api/v1/autenticacion")
+@RequestMapping("autenticacion")
 @RequiredArgsConstructor
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/signupuser")
+    @PostMapping("signupuser")
     public ResponseEntity<Usuario> signUpUser(@RequestBody SignUpRequest signUpRequest){
         return ResponseEntity.ok(authenticationService.signUpUser(signUpRequest));
     }
-    @PostMapping("/signupadmin")
+    @PostMapping("signupadmin")
     public ResponseEntity<Usuario> signUpAdmin(@RequestBody SignUpRequest signUpRequest){
         return ResponseEntity.ok(authenticationService.signUpAdmin(signUpRequest));
     }
 
-    @PostMapping("/signin")
+    @PostMapping("signin")
     public ResponseEntity<AuthenticationResponse> signin(@RequestBody SignInRequest signInRequest){
         return ResponseEntity.ok(authenticationService.signin(signInRequest));
     }
