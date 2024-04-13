@@ -24,9 +24,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Usuario signUpUser(SignUpRequest signUpRequest) {
         Usuario usuario = new Usuario();
-        usuario.setNombres(signUpRequest.getNombres());
-        usuario.setApellidos(signUpRequest.getApellidos());
-        usuario.setEmail(signUpRequest.getEmail());
+        usuario.setCodEmpresa(signUpRequest.getCodEmpresa());
+        usuario.setCodUsuario(usuarioRepository.obtenerUsuarioId(signUpRequest.getCodEmpresa()));
+        usuario.setNomUsuario(signUpRequest.getNomUsuario());
+        usuario.setLoginUsuario(signUpRequest.getLoginUsuario());
+        usuario.setTipdid(signUpRequest.getTipdid());
+        usuario.setDocide(signUpRequest.getDocide());
         usuario.setRole(Role.USER);
         usuario.setPassword(new BCryptPasswordEncoder().encode(signUpRequest.getPassword()));
         return usuarioRepository.save(usuario);
@@ -35,9 +38,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public Usuario signUpAdmin(SignUpRequest signUpRequest) {
         Usuario usuario = new Usuario();
-        usuario.setNombres(signUpRequest.getNombres());
-        usuario.setApellidos(signUpRequest.getApellidos());
-        usuario.setEmail(signUpRequest.getEmail());
+        usuario.setCodEmpresa(signUpRequest.getCodEmpresa());
+        usuario.setCodUsuario(usuarioRepository.obtenerUsuarioId(signUpRequest.getCodEmpresa()));
+        usuario.setNomUsuario(signUpRequest.getNomUsuario());
+        usuario.setLoginUsuario(signUpRequest.getLoginUsuario());
+        usuario.setTipdid(signUpRequest.getTipdid());
+        usuario.setDocide(signUpRequest.getDocide());
         usuario.setRole(Role.ADMIN);
         usuario.setPassword(new BCryptPasswordEncoder().encode(signUpRequest.getPassword()));
         return usuarioRepository.save(usuario);
@@ -48,7 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationResponse signin(SignInRequest signInRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 signInRequest.getEmail(),signInRequest.getPassword()));
-        var user = usuarioRepository.findByEmail(signInRequest.getEmail())
+        var user = usuarioRepository.findByLoginUsuario(signInRequest.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Email no valido"));
 
         var jwt = jwtService.generateToken(user);

@@ -1,5 +1,6 @@
 package com.codigo.mslogin.entity;
 
+import com.codigo.mslogin.entity.id.UsuarioId;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,19 +13,42 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "\"user\"")
+@Table(name = "usuario", schema = "dse")
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Usuario implements UserDetails {
+@IdClass(UsuarioId.class)
+public class Usuario extends  AuditoriaEntidadEntity implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String nombres;
-    private String apellidos;
-    private String email;
+    @Column(name = "codempresa")
+    private Long codEmpresa;
+
+    @Id
+    @Column(name = "codusuario")
+    private Long codUsuario;
+
+    @Column(name = "loginusuario")
+    private String loginUsuario;
+
+    @Column(name = "nomusuario")
+    private String nomUsuario;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "tipdid")
+    private Long tipdid;
+
+    @Column(name = "docide")
+    private String docide;
+
+    @Column(name = "codest")
+    private Long codEst;
+
+    @Column(name = "activo")
+    private Boolean activo;
+
     private Role role;
 
     @Override
@@ -34,7 +58,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return loginUsuario;
     }
 
     @Override
