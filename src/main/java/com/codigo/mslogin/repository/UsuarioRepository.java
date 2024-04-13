@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
-    Optional<Usuario> findByLoginUsuario(String email);
+    Optional<Usuario> findByLoginUsuario(String loginUsuario);
 
     @Query(value = """
         SELECT COALESCE(Max(codusuario),0)+1
