@@ -8,11 +8,15 @@ import com.codigo.mslogin.request.SignUpRequest;
 import com.codigo.mslogin.response.AuthenticationResponse;
 import com.codigo.mslogin.service.AuthenticationService;
 import com.codigo.mslogin.service.JWTService;
+import com.codigo.mslogin.util.Constantes;
+import com.codigo.mslogin.util.EstadoRegistro;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +34,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         usuario.setLoginUsuario(signUpRequest.getLoginUsuario());
         usuario.setTipdid(signUpRequest.getTipdid());
         usuario.setDocide(signUpRequest.getDocide());
+        usuario.setFecCreacion(LocalDateTime.now());
+        usuario.setActivo(true);
+        usuario.setCodEst(EstadoRegistro.REGISTRADO.getValue());
+        usuario.setCodUsuarioCreacion(1L);
+        usuario.setNomTerCreacion(Constantes.IP_TERMINAL);
         usuario.setRole(Role.USER);
         usuario.setPassword(new BCryptPasswordEncoder().encode(signUpRequest.getPassword()));
         return usuarioRepository.save(usuario);
@@ -44,6 +53,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         usuario.setLoginUsuario(signUpRequest.getLoginUsuario());
         usuario.setTipdid(signUpRequest.getTipdid());
         usuario.setDocide(signUpRequest.getDocide());
+        usuario.setFecCreacion(LocalDateTime.now());
+        usuario.setActivo(true);
+        usuario.setCodEst(EstadoRegistro.REGISTRADO.getValue());
+        usuario.setCodUsuarioCreacion(1L);
+        usuario.setNomTerCreacion(Constantes.IP_TERMINAL);
         usuario.setRole(Role.ADMIN);
         usuario.setPassword(new BCryptPasswordEncoder().encode(signUpRequest.getPassword()));
         return usuarioRepository.save(usuario);
