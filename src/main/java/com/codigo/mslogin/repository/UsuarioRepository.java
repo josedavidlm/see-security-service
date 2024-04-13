@@ -10,8 +10,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
     Optional<Usuario> findByLoginUsuario(String email);
 
     @Query(value = """
-        SELECT COALESCE(Max(codbimestre),0)+1
-        FROM dev.bimestre
+        SELECT COALESCE(Max(codusuario),0)+1
+        FROM dse.usuario
         WHERE codempresa = :codEmpresa
       """, nativeQuery = true)
     Long obtenerUsuarioId(Long codEmpresa);

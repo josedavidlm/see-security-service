@@ -67,9 +67,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public AuthenticationResponse signin(SignInRequest signInRequest) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                signInRequest.getEmail(),signInRequest.getPassword()));
-        var user = usuarioRepository.findByLoginUsuario(signInRequest.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Email no valido"));
+                signInRequest.getLoginUsuario(),signInRequest.getPassword()));
+        var user = usuarioRepository.findByLoginUsuario(signInRequest.getLoginUsuario())
+                .orElseThrow(() -> new IllegalArgumentException("Login no valido"));
 
         var jwt = jwtService.generateToken(user);
         AuthenticationResponse authenticationResponse =  new AuthenticationResponse();

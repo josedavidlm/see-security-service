@@ -1,8 +1,7 @@
 package com.codigo.mslogin.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+
 import lombok.Getter;
 import lombok.Setter;
 
